@@ -1,0 +1,24 @@
+--- 
+cloud: 
+  stream: 
+    bindings: 
+      input: 
+        content-type: application/json
+        destination: sink-source-topic
+        group: messages-group-a
+      output: 
+        content-type: application/json
+        destination: sink-source-topic
+        group: messages-group-a
+    kafka: 
+      binder: 
+        autoCreateTopics: true
+        brokers: "localhost:9092"
+
+spring:
+  datasource:
+    platform: postgres
+    driver-class-name: org.postgresql.Driver
+    password: root
+    url: "jdbc:postgresql://192.168.99.100:5432/accounts"
+    username: root

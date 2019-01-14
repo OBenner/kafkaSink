@@ -1,0 +1,81 @@
+
+
+#spring:
+#   datasource:
+#      url: jdbc:postgresql://192.168.99.100:5432/accounts
+#      username: root
+#      password: root
+#      driver-class-name: org.postgresql.Driver
+#  cloud:
+#    stream:
+## -- Please refer to https://github.com/spring-cloud/spring-cloud-stream-binder-kafka/blob/master/spring-cloud-stream-binder-kafka-docs/src/main/asciidoc/overview.adoc#binding-properties
+#      kafka:
+#        binder:
+#          brokers: localhost:9092
+##          zkNodes: localhost:2181
+#          autoCreateTopics: true
+##          autoAddPartitions: true
+##          configuration:
+##            security:
+##              protocol: SASL_PLAINTEXT
+##          autoCreateTopics: true
+##          autoAddPartitions: true
+##          headers:
+##            - X-B3-TraceId
+##            - X-B3-SpanId
+##            - X-B3-Sampled
+##            - X-B3-ParentSpanId
+##            - X-Span-Name
+##            - X-Span-Export
+##            - X-Process-Id
+##            - spanId
+##            - spanSampled
+##            - spanProcessId
+##            - spanParentSpanId
+##            - spanTraceId
+##            - spanName
+##            - messageSent
+##        bindings:
+##            liveSource:
+##                binder: kafka
+##                consumer:
+##                    headerMode: raw
+##                    autoCommitOffset: true
+##                destination: topic_example_name
+#      bindings:
+#        input:
+#          group: messages-group-a
+#          destination: sink-source-topic
+#          content-type: application/json
+##          consumer:
+##            resetOffsets: true
+#        output:
+#          group: messages-group-a
+#          destination: sink-source-topic
+#          content-type: application/json
+
+---
+cloud:
+  stream:
+    bindings:
+      input:
+        content-type: application/json
+        destination: input
+        group: messages-group-a
+#      output:
+#        content-type: application/json
+#        destination: sink-source-topic
+#        group: messages-group-a
+    kafka:
+      binder:
+        autoCreateTopics: true
+        brokers: "localhost:9092"
+
+
+spring:
+  datasource:
+    platform: postgres
+    driver-class-name: org.postgresql.Driver
+    password: root
+    url: "jdbc:postgresql://192.168.99.100:5432/accounts"
+    username: root
